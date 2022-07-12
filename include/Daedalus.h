@@ -8,10 +8,11 @@
 // To use by Tartarus apps
 #include "Window/Window.h"
 #include "Logger.h"
+#include "Themes/ImGuiTheme.h"
 #include <spdlog/spdlog.h>
 
 // --ENTRY POINT--
-#include "EntryPoint.h"
+//#include "EntryPoint.h"
 // --------------
 
 

@@ -19,4 +19,6 @@
 #error "Only windows now"
 #endif
 
+#define BIT(x) 1 << x
+
 #endif //DAEDALUS_CORE_H

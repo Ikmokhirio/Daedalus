@@ -9,7 +9,7 @@ add_compile_definitions(DAEDALUS_STATIC_BUILD)
 
 set(DAEDALUS_BUILD_DIR ${PROJECT_SOURCE_DIR}/../cmake-build-debug)
 
-add_executable(${PROJECT_NAME} WIN32 src/main.cpp)
+add_executable(${PROJECT_NAME} WIN32 src/main.cpp src/LightTheme.cpp src/LightTheme.h src/FontAwesome6.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../src)

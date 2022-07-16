@@ -20,7 +20,7 @@ int __stdcall wWinMain(HINSTANCE hinstance,
     auto gui = Daedalus::CreateGui();
 
     while(gui->IsOpen()) {
-        gui->render();
+        gui->Render();
     }
 
     delete gui;

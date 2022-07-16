@@ -12,10 +12,13 @@
 
 class TestWindow : public Daedalus::Win32Window {
 private:
-
+    float test;
+    bool reverse;
 public:
 
     explicit TestWindow(Daedalus::WindowProps props) : Daedalus::Win32Window(std::move(props)) {
+        test = 0;
+        reverse = false;
         // Default font
         Daedalus::ImGuiFont robotoFont(R"(C:\Roboto-Medium.ttf)", 24.0f, Daedalus::Russian | Daedalus::English);
         robotoFont.GetConfig().OversampleH = 1; //or 2 is the same
@@ -41,9 +44,24 @@ public:
 
         ImGui::SetWindowPos({0, 0});
         ImGui::SetWindowSize({1280, 800});
-        ImGui::Begin("ТЕСТ ТЕСТ");
-        ImGui::Text(" РУССКИЙ ТЕКСТ И " ICON_FA_USERS " иконка");
+        ImGui::Begin("TEST");
+        ImGui::Text(" РУССКИЙ ТЕКСТ И " ICON_FA_USERS " иконка с %f временем", ImGui::GetIO().DeltaTime);
         ImGui::Button("BUTTON");
+
+        if (!reverse && test < 1.0f) {
+            AnimateStep(test, 0, 1.0f, EaseOutSine, 1.0f);
+        }
+        if(reverse && test > 0.0f) {
+            AnimateStep(test, 1.0f, 0.0f, EaseOutSine, 1.0f);
+            DS_INFO("{0}", test);
+        }
+        if(test == 1.0f) {
+            reverse = true;
+        }
+        if(test == 0.0f) {
+            reverse = false;
+        }
+        ImGui::TextColored(ImColor(test, test, test), "Test hi))");
         ImGui::End();
 
         EndFrame();

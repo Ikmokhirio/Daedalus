@@ -9,6 +9,7 @@
 #include <mutex>
 #include <utility>
 
+#include "Utils/Utils.h"
 #include "Themes/ImGuiTheme.h"
 #include "Core.h"
 #include "imgui.h"

@@ -11,6 +11,7 @@
 #include "Logger.h"
 #include "Themes/ImGuiTheme.h"
 #include <spdlog/spdlog.h>
+#include "Utils/Utils.h"
 
 // --ENTRY POINT--
 //#include "EntryPoint.h"

@@ -7,6 +7,7 @@
 
 // To use by Tartarus apps
 #include "Window/Window.h"
+#include "Window/Win32Window.h"
 #include "Logger.h"
 #include "Themes/ImGuiTheme.h"
 #include <spdlog/spdlog.h>

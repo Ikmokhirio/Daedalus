@@ -15,9 +15,9 @@
 #include <d3d9.h>
 #include <tchar.h>
 
-namespace Daedalus {
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-    extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+namespace Daedalus {
 
     extern LRESULT WINAPI oWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

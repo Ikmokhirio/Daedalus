@@ -4,3 +4,6 @@
 [submodule "spdlog"]
 	path = ThirdParty/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "easing"]
+	path = ThirdParty/easing
+	url = https://github.com/nicolausYes/easing-functions.git

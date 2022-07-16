@@ -7,14 +7,15 @@ set(DAEDALUS_SHARED 0)
 add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
 add_compile_definitions(DAEDALUS_STATIC_BUILD)
 
-set(DAEDALUS_BUILD_DIR ${PROJECT_SOURCE_DIR}/../cmake-build-debug)
+set(DAEDALUS_BUILD_DIR ${PROJECT_SOURCE_DIR}/../../cmake-build-debug)
+set(DAEDALUS_PATH ${PROJECT_SOURCE_DIR}/../../)
 
-add_executable(${PROJECT_NAME} WIN32 src/main.cpp src/LightTheme.cpp src/LightTheme.h src/FontAwesome6.h)
+add_executable(${PROJECT_NAME} WIN32 main.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../include)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../src)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../ThirdParty/imgui)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../ThirdParty/spdlog/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/src)
+target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/ThirdParty/imgui)
+target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/ThirdParty/spdlog/include)
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 

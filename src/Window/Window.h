@@ -23,13 +23,13 @@ namespace Daedalus {
     };
 
     struct WindowProps {
-        std::string windowName;
+        std::string windowName{};
         uint32_t width{};
         uint32_t height{};
-        uint32_t titleBarHeight;
-        int style;
+        uint32_t titleBarHeight{};
+        int style{};
 
-        WindowProps(std::string n,int newStyle, uint32_t w = 800, uint32_t h = 600, uint32_t title=20) :
+        WindowProps(std::string n, int newStyle, uint32_t w = 800, uint32_t h = 600, uint32_t title = 20) :
                 windowName(std::move(n)),
                 style(newStyle),
                 width(w),
@@ -77,67 +77,5 @@ namespace Daedalus {
     };
 }
 
-#ifdef DAEDALUS_PLATFORM_WINDOWS
-
-#include "Window/ImGuiBackends/imgui_impl_dx9.h"
-#include "Window/ImGuiBackends/imgui_impl_win32.h"
-#include "Logger.h"
-#include <d3d9.h>
-#include <tchar.h>
-
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-extern LRESULT WINAPI oWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-namespace Daedalus {
-
-    class Win32Window : public Window {
-    public:
-        explicit Win32Window(WindowProps props);
-
-        void NewFrame();
-
-        void EndFrame();
-
-        void SetNextTheme(ImGuiTheme *theme);
-
-        virtual void DrawTitleBar();
-
-        LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-        ~Win32Window();
-
-    private:
-        D3DPRESENT_PARAMETERS presentParameters = {};
-        LPDIRECT3D9 d3d = NULL;
-        LPDIRECT3DDEVICE9 device = NULL;
-
-        HWND windowHandle = NULL;
-        POINTS position = { };
-        WNDCLASSEX windowClass = {};
-
-        ImGuiTheme *nextTheme;
-
-        void ChangeTheme();
-
-        void CreateWin32Window();
-
-        void DestroyWin32Window();
-
-        void CreateDevice();
-
-        void ResetDevice();
-
-        void DestroyDevice();
-
-        void CreateImGui();
-
-        void DestroyImGui();
-    };
-
-    Window *CreateGui();
-}
-
-#endif
 
 #endif //DAEDALUS_WINDOW_H

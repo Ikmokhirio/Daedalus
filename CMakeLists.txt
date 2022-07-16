@@ -30,7 +30,7 @@ else ()
     set(BUILD_OPTION STATIC)
 endif ()
 
-add_library(${PROJECT_NAME} ${BUILD_OPTION} include/Daedalus.h src/EntryPoint.h src/Logger.cpp src/Logger.h src/Core.h src/Window/Window.h src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGuiBackends/imgui_impl_dx9.h src/Window/ImGuiBackends/imgui_impl_win32.cpp src/Window/ImGuiBackends/imgui_impl_win32.h src/Window/Window.cpp src/Themes/ImGuiTheme.h src/Themes/ImGuiTheme.cpp src/Themes/ImGuiFont.cpp src/Themes/ImGuiFont.h)
+add_library(${PROJECT_NAME} ${BUILD_OPTION} include/Daedalus.h src/EntryPoint.h src/Logger.cpp src/Logger.h src/Core.h src/Window/Window.h src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGuiBackends/imgui_impl_dx9.h src/Window/ImGuiBackends/imgui_impl_win32.cpp src/Window/ImGuiBackends/imgui_impl_win32.h src/Window/Window.cpp src/Themes/ImGuiTheme.h src/Themes/ImGuiTheme.cpp src/Themes/ImGuiFont.cpp src/Themes/ImGuiFont.h src/Window/Win32Window.cpp src/Window/Win32Window.h)
 
 #=====IMGUI BUILD==========
 set(ROOT ${PROJECT_SOURCE_DIR}/ThirdParty/imgui)

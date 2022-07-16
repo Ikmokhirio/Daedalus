@@ -63,6 +63,8 @@ namespace Daedalus {
 
         virtual void render() = 0;
 
+        virtual void Collapse() = 0;
+
         inline bool IsOpen() const { return isOpen; }
 
         inline void Open() { isOpen = true; }

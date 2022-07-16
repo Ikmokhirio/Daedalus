@@ -39,6 +39,18 @@ public:
         SetNextTheme(new LightTheme({robotoFont, iconsFont}));
     }
 
+    void DrawTitleBar() override {
+        ImGui::Text("%s", windowProps.windowName.c_str());
+        ImGui::SameLine(windowProps.width - 80.0f);
+        if ((windowProps.style & Daedalus::Minimizing) && ImGui::Button("-", ImVec2(24, 24))) {
+           Collapse();
+        }
+        ImGui::SameLine(windowProps.width - 48.0f);
+        if (ImGui::Button("X", ImVec2(24, 24))) {
+            Close();
+        }
+    }
+
     void render() {
         NewFrame();
 

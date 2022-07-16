@@ -25,6 +25,8 @@ namespace Daedalus {
     public:
         explicit Win32Window(WindowProps props);
 
+        void Collapse() override;
+
         void NewFrame();
 
         void EndFrame();

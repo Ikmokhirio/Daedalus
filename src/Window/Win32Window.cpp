@@ -67,15 +67,7 @@ namespace Daedalus {
     }
 
     void Win32Window::DrawTitleBar() {
-        ImGui::Text("%s", windowProps.windowName.c_str());
-        ImGui::SameLine(windowProps.width - 80.0f);
-        if ((windowProps.style & Minimizing) && ImGui::Button("-", ImVec2(24, 16))) {
-            CloseWindow(windowHandle);
-        }
-        ImGui::SameLine(windowProps.width - 48.0f);
-        if (ImGui::Button("X", ImVec2(24, 16))) {
-            Close();
-        }
+        throw std::runtime_error("No implementation for DrawTitleBar");
     }
 
     void Win32Window::EndFrame() {
@@ -311,6 +303,10 @@ namespace Daedalus {
 
             nextTheme = nullptr;
         }
+    }
+
+    void Win32Window::Collapse() {
+        CloseWindow(windowHandle);
     }
 }
 

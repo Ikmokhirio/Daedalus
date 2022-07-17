@@ -11,13 +11,13 @@ namespace Daedalus {
 
     ImGuiFont::ImGuiFont(std::vector<std::string> filepathes, float size, int languages, ImWchar *customRange) {
         characterRanges = nullptr;
-        files = std::move(filepathes);
+        for (auto &filepath: filepathes) {
+            files.emplace_back(filepath);
+            DS_CORE_INFO("Creating font from file {0}", filepath);
+        }
 
-        DS_CORE_INFO("Creating font");
 
-        config.MergeMode = true;
-
-        if((languages & Russian) && (languages & English)) {
+        if ((languages & Russian) && (languages & English)) {
             characterRanges = new ImWchar[5]
                     {
                             0x0020, 0x00FF, // Basic Latin + Latin Supplement
@@ -38,9 +38,9 @@ namespace Daedalus {
                     };
         }
 
-        if(languages & Custom) {
+        if (languages & Custom) {
             delete characterRanges;
-            if(!customRange) {
+            if (!customRange) {
                 DS_CORE_ERROR("No custom range provided for font");
                 throw std::runtime_error("No custom range provided for font");
             }
@@ -51,11 +51,11 @@ namespace Daedalus {
     }
 
     ImGuiFont::ImGuiFont(std::string filepath, float size, int languages, ImWchar *customRange) {
-        DS_CORE_INFO("Creating font");
+        DS_CORE_INFO("Creating font from file {0}", filepath);
         characterRanges = nullptr;
         files.emplace_back(std::move(filepath));
 
-        if((languages & Russian) && (languages & English)) {
+        if ((languages & Russian) && (languages & English)) {
             characterRanges = new ImWchar[5]
                     {
                             0x0020, 0x00FF, // Basic Latin + Latin Supplement
@@ -76,9 +76,9 @@ namespace Daedalus {
                     };
         }
 
-        if(languages & Custom) {
+        if (languages & Custom) {
             delete characterRanges;
-            if(!customRange) {
+            if (!customRange) {
                 DS_CORE_ERROR("No custom range provided for font");
                 throw std::runtime_error("No custom range provided for font");
             }

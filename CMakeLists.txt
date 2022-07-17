@@ -2,17 +2,25 @@ cmake_minimum_required(VERSION 3.15)
 project(Daedalus)
 
 add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
-add_compile_definitions(DAEDALUS_BUILD_DLL)
+
+
+# DON'T TOUCH IT :)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+set(ENABLE_CMAKE_MESSAGES ON)
+#
 
 # YOU CAN INSTALL DIRECTX SDK FROM URL :
 set(DXSDK_DIR "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
+
 # IF SET TO 'ON' DAEDALUS WILL BE BUILD AS SHARED LIBRARY
 set(DAEDALUS_SHARED OFF)
 
-set(CMAKE_CXX_STANDARD 20)
-
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-set(ENABLE_CMAKE_MESSAGES ON)
+if (DAEDALUS_SHARED)
+    add_compile_definitions(DAEDALUS_BUILD_DLL)
+else ()
+    add_compile_definitions(DAEDALUS_STATIC_BUILD)
+endif ()
 
 if (ENABLE_CMAKE_MESSAGES)
     message("DirectX9 SDK directory : ${DXSDK_DIR}")
@@ -32,6 +40,16 @@ endif ()
 
 add_library(${PROJECT_NAME} ${BUILD_OPTION} include/Daedalus.h src/EntryPoint.h src/Logger.cpp src/Logger.h src/Core.h src/Window/Window.h src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGuiBackends/imgui_impl_dx9.h src/Window/ImGuiBackends/imgui_impl_win32.cpp src/Window/ImGuiBackends/imgui_impl_win32.h src/Window/Window.cpp src/Themes/ImGuiTheme.h src/Themes/ImGuiTheme.cpp src/Themes/ImGuiFont.cpp src/Themes/ImGuiFont.h src/Window/Win32Window.cpp src/Window/Win32Window.h src/Utils/Utils.h src/Utils/Easing/Easing.h src/Utils/Easing/Easing.cpp src/Utils/Utils.cpp)
 
+if (DAEDALUS_SHARED)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
+else ()
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
+endif ()
+
 #=====IMGUI BUILD==========
 set(ROOT ${PROJECT_SOURCE_DIR}/ThirdParty/imgui)
 set(IMGUI_PUBLIC_HEADERS ${ROOT}/imgui.h)
@@ -48,9 +66,15 @@ set(PLATFORM_SOURCE src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGui
 if (DAEDALUS_SHARED)
     add_library(imgui SHARED ${IMGUI_SOURCES})
     target_include_directories(imgui PUBLIC ${ROOT})
+    set_target_properties(imgui PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/imgui)
+    set_target_properties(imgui PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/imgui)
 else ()
     add_library(imgui STATIC ${IMGUI_SOURCES} ${IMGUI_PUBLIC_HEADERS}
             ${IMGUI_PRIVATE_HEADERS} ${PLATFORM_HEADERS} ${PLATFORM_SOURCE})
+    set_target_properties(imgui PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/static/imgui)
     target_include_directories(imgui PUBLIC ${ROOT})
 endif ()
 
@@ -66,6 +90,18 @@ endif ()
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/ThirdParty/spdlog)
 
+if (DAEDALUS_SHARED)
+    set_target_properties(spdlog PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/spdlog)
+    set_target_properties(spdlog PROPERTIES
+            LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/spdlog)
+    set_target_properties(spdlog PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/spdlog)
+else ()
+    set_target_properties(spdlog PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/static/spdlog)
+endif ()
+
 #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/ThirdParty/spdlog/spdlogd.lib ${CMAKE_BINARY_DIR}/spdlogd.lib)
 
 #========FINAL===========
@@ -74,4 +110,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${ROOT})
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ThirdParty/spdlog/include)
 
-target_link_libraries(${PROJECT_NAME} imgui)
+if (DAEDALUS_SHARED)
+    target_link_libraries(${PROJECT_NAME} imgui spdlog d3d9)
+endif ()

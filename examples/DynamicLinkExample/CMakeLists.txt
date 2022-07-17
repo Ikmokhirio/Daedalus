@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
 
-set(DAEDALUS_BUILD_DIR ${PROJECT_SOURCE_DIR}/../../cmake-build-debug)
 set(DAEDALUS_PATH ${PROJECT_SOURCE_DIR}/../../)
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp)
@@ -18,7 +17,3 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/ThirdParty/sp
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
 target_link_libraries(${PROJECT_NAME} Daedalus imgui spdlogd d3d9)
-#
-#add_custom_command(TARGET ${PROJECT_NAME} PRE_LINK COMMAND ${CMAKE_COMMAND} -E copy ${DAEDALUS_BUILD_DIR}/imgui.lib ${CMAKE_BINARY_DIR}/imgui.lib)
-#add_custom_command(TARGET ${PROJECT_NAME} PRE_LINK COMMAND ${CMAKE_COMMAND} -E copy ${DAEDALUS_BUILD_DIR}/Daedalus.lib ${CMAKE_BINARY_DIR}/Daedalus.lib)
-#add_custom_command(TARGET ${PROJECT_NAME} PRE_LINK COMMAND ${CMAKE_COMMAND} -E copy ${DAEDALUS_BUILD_DIR}/ThirdParty/spdlog/spdlogd.lib ${CMAKE_BINARY_DIR}/spdlogd.lib)

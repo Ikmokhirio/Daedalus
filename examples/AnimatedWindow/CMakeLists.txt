@@ -2,12 +2,10 @@ cmake_minimum_required(VERSION 3.15)
 project(DaedalusExample)
 
 set(CMAKE_CXX_STANDARD 20)
-set(DAEDALUS_SHARED 0)
 
 add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
 add_compile_definitions(DAEDALUS_STATIC_BUILD)
 
-set(DAEDALUS_BUILD_DIR ${PROJECT_SOURCE_DIR}/../../cmake-build-debug)
 set(DAEDALUS_PATH ${PROJECT_SOURCE_DIR}/../../)
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp)

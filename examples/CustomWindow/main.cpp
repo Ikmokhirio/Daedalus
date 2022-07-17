@@ -55,7 +55,7 @@ public:
         ImGui::SetWindowSize({1280, 800});
 
         ImGui::Begin("TEST");
-        ImGui::Text("Hello, world!");
+        ImGui::Text(ICON_FA_ARROW_DOWN " Hello, world!");
         ImGui::End();
 
         EndFrame();

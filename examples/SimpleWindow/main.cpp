@@ -29,5 +29,5 @@ public:
 };
 
 Daedalus::Window *Daedalus::CreateGui() {
-    return new TestWindow({"Example window", Resizing, 1280, 800});
+    return new TestWindow({"Example window", NoStyle, 1280, 800, 19});
 }

@@ -78,7 +78,7 @@ namespace Daedalus {
         device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
         device->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
 
-        device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(255, 0, 0, 255), 1.0f, 0);
+        device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 255), 1.0f, 0);
 
         if (device->BeginScene() >= 0) {
             ImGui::Render();
@@ -169,7 +169,7 @@ namespace Daedalus {
     void Win32Window::CreateWin32Window() {
         windowClass = {
                 sizeof(WNDCLASSEX),
-                CS_HREDRAW | CS_VREDRAW, // style
+                CS_CLASSDC, // style
                 oWndProc, // lpfnWndProc
                 0L, // .cbClsExtra
                 0L, // cbWndExtra
@@ -182,10 +182,10 @@ namespace Daedalus {
                 NULL // hIconsm
         };
 
-        DS_INFO("Register window class");
+        DS_CORE_INFO("Register window class");
         RegisterClassEx(&windowClass);
 
-        DS_INFO("Creating window with name : {0}, width : {1}, height : {2}",
+        DS_CORE_INFO("Creating window with name : {0}, width : {1}, height : {2}",
                 windowProps.windowName,
                 windowProps.width,
                 windowProps.height);
@@ -224,7 +224,7 @@ namespace Daedalus {
         const auto result = device->Reset(&presentParameters);
 
         if (result == D3DERR_INVALIDCALL) {
-            DS_ERROR("Invalid call during ResetDevice()");
+            DS_CORE_ERROR("Invalid call during ResetDevice()");
             return;
         }
 
@@ -259,14 +259,14 @@ namespace Daedalus {
         ImGui::StyleColorsDark();
 
         // Setup Platform/Renderer backends
-        DS_INFO("Initializing imgui");
+        DS_CORE_INFO("Initializing imgui");
         ImGui_ImplWin32_Init(windowHandle);
         ImGui_ImplDX9_Init(device);
     }
 
     void Win32Window::CreateDevice() {
         if ((d3d = Direct3DCreate9(D3D_SDK_VERSION)) == NULL) {
-            DS_ERROR("Cannot create d3d9 object");
+            DS_CORE_ERROR("Cannot create d3d9 object");
             return;
         }
 
@@ -282,7 +282,7 @@ namespace Daedalus {
 
         if (d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, windowHandle, D3DCREATE_HARDWARE_VERTEXPROCESSING,
                               &presentParameters, &device) < 0) {
-            DS_ERROR("Cannot create d3d9 device");
+            DS_CORE_ERROR("Cannot create d3d9 device");
             return;
         }
 

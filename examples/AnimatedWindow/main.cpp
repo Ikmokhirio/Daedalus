@@ -8,16 +8,13 @@
 class TestWindow : public Daedalus::Win32Window {
 private:
     float myAnimatedParams;
-    float startValue;
-    float endValue;
-    float animationSpeed;
+
+    Animation *colorAnim;
 public:
 
     explicit TestWindow(Daedalus::WindowProps props) : Daedalus::Win32Window(std::move(props)) {
         myAnimatedParams = 0.0f;
-        startValue = 0.0f;
-        endValue = 1.0f;
-        animationSpeed = 1.0f;
+        colorAnim = new Animation(myAnimatedParams, 0.0f, 1.0f, EaseOutSine, 1.0f);
     }
 
     void Render() override {
@@ -28,15 +25,9 @@ public:
 
         ImGui::Begin("TEST");
         // Changing text color from black to red and backwards
-        if(myAnimatedParams == 0.0f) {
-            startValue = 0.0f;
-            endValue = 1.0f;
+        if(colorAnim->Play()) {
+            colorAnim->Reverse();
         }
-        if(myAnimatedParams == 1.0f) {
-            startValue = 1.0f;
-            endValue = 0.0f;
-        }
-        AnimateStep(myAnimatedParams, startValue, endValue, EaseOutSine, animationSpeed);
         ImGui::TextColored(ImColor(myAnimatedParams, 0.0f, 0.0f, 1.0f), "Hello, world!");
         ImGui::End();
 

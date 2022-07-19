@@ -7,27 +7,45 @@
 #include "Utils.h"
 #include "imgui.h"
 
-float animTime = 0.0f;
-bool clearNextFrame = true;
+Animation::Animation(float &value, float start, float end, easing_functions easing, float speed)
+        : animationValue(value) {
 
-void UpdateTime() {
-    if (clearNextFrame) {
-        animTime = 0;
-        clearNextFrame = false;
-        return;
-    }
+    startValue = start;
+    endValue = end;
 
-    animTime += ImGui::GetIO().DeltaTime;
+    func = getEasingFunction(easing);
+    animationSpeed = speed;
+    animTime = 0.0f;
 
-    if (animTime >= 1.0f) {
-        clearNextFrame = true;
-        animTime = 1.0f;
-    }
+    reversed = false;
 }
 
-void AnimateStep(float &value, float start, float end, easing_functions easing, float speed) {
-    auto easingFunction = getEasingFunction(easing);
+void Animation::Restart() {
+    animTime = 0.0f;
+    reversed = false;
+}
 
-    // easingFunction(animTime) = t
-    value = (float) (start + easingFunction(animTime * speed) * (end - start));
+bool Animation::Play() {
+
+    if (reversed) {
+        animTime -= (ImGui::GetIO().DeltaTime * animationSpeed);
+    } else {
+        animTime += (ImGui::GetIO().DeltaTime * animationSpeed);
+    }
+
+    if (animTime >= 1.0f) {
+        animTime = 1.0f;
+    }
+    if (animTime < 0.0f) {
+        animTime = 0.0f;
+    }
+
+    animationValue = (float) (startValue +
+                              func(animTime) * (endValue - startValue));
+
+    return animTime >= 1.0f;
+}
+
+void Animation::Reverse() {
+    reversed = !reversed;
 }

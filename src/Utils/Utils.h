@@ -5,13 +5,33 @@
 #ifndef DAEDALUS_UTILS_H
 #define DAEDALUS_UTILS_H
 
+#include <functional>
 #include "Easing/Easing.h"
 
-extern float animTime;
-extern bool clearNextFrame;
+class Animation {
+public:
 
-void UpdateTime();
+    Animation(float &value, float start, float end, easing_functions easing, float speed = 1.0f);
 
-void AnimateStep(float &value, float start, float end, easing_functions easing, float speed = 1.0f);
+    void Restart();
+
+    // Return isFinished
+    bool Play();
+
+    void Reverse();
+
+private:
+
+    float startValue;
+    float endValue;
+
+    easingFunction func;
+    float animationSpeed;
+    float animTime;
+
+    bool reversed;
+
+    float &animationValue;
+};
 
 #endif //DAEDALUS_UTILS_H

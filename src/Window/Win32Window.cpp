@@ -42,8 +42,6 @@ namespace Daedalus {
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        UpdateTime();
-
         // Allow to have full screen window))))
         ImGui::SetNextWindowPos({0, 0});
         ImGui::SetNextWindowSize(ImVec2(windowProps.width, windowProps.height));

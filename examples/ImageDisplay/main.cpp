@@ -31,10 +31,10 @@ public:
         ImGui::Text("Hello, world!");
 
         // Image can be drawn likes this
-        ImGui::Image(testImage.textureId,ImVec2{static_cast<float>(testImage.width),static_cast<float>(testImage.height)});
+//        ImGui::Image(testImage.textureId,ImVec2{1024,1204}, ImVec2{0.0f,0.0f},{ImVec2{2.0f,2.0f}});
 
         // Or like this (this method is safer, because you wouldn't need to do addtional check
-        // TODO : Add simpler method
+        Daedalus::DisplayImage(testImage);
 
         ImGui::End();
 

@@ -5,6 +5,25 @@
 #include "ImageLoader.h"
 #include <Logger.h>
 
+namespace Daedalus {
+    void DisplayImage(const ImageDescriptor &desc, const ImVec2 &size, const ImVec2 &uv0, const ImVec2 &uv1,
+                      const ImVec4 &tint_col, const ImVec4 &border_col) {
+
+        if (!desc.textureId) {
+            DS_ERROR("Texture was not correctly loaded");
+            return;
+        }
+
+        if (size.x == 0 && size.y == 0) {
+            return ImGui::Image(desc.textureId,
+                                ImVec2(static_cast<float>(desc.width), static_cast<float>(desc.height)),
+                                uv0, uv1, tint_col, border_col);
+        }
+
+        return ImGui::Image(desc.textureId, size, uv0, uv1, tint_col, border_col);
+    }
+}
+
 #ifdef DAEDALUS_PLATFORM_WINDOWS
 
 ImageDescriptor LoadImageFromPath(LPDIRECT3DDEVICE9 *pDevice, std::string_view path, int width, int height) {

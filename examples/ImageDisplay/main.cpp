@@ -34,7 +34,9 @@ public:
 //        ImGui::Image(testImage.textureId,ImVec2{1024,1204}, ImVec2{0.0f,0.0f},{ImVec2{2.0f,2.0f}});
 
         // Or like this (this method is safer, because you wouldn't need to do addtional check
-        Daedalus::DisplayImage(testImage);
+        if(Daedalus::DisplayImageButton(testImage, ImVec2(testImage.width, testImage.height), ImVec2(0, 0),ImVec2(1, 1), 1,ImVec4(1,0,0,1), ImVec4(1,1,1,1))) {
+            DS_INFO("TEST");
+        }
 
         ImGui::End();
 

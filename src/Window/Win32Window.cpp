@@ -249,7 +249,7 @@ namespace Daedalus {
 
     void Win32Window::CreateImGui() {
 
-        IMGUI_CHECKVERSION();
+//        IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO &io = ImGui::GetIO();
         io.IniFilename = NULL;

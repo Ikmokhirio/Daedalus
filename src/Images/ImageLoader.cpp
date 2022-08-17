@@ -3,6 +3,7 @@
 //
 
 #include "ImageLoader.h"
+#include <imgui.h>
 #include <Logger.h>
 
 namespace Daedalus {
@@ -21,6 +22,26 @@ namespace Daedalus {
         }
 
         return ImGui::Image(desc.textureId, size, uv0, uv1, tint_col, border_col);
+    }
+
+
+    bool DisplayImageButton(const ImageDescriptor &desc, const ImVec2 &size,
+                            const ImVec2 &uv0, const ImVec2 &uv1, int frame_padding,
+                            const ImVec4 &bg_col, const ImVec4 &tint_col) {
+
+        if (!desc.textureId) {
+            DS_ERROR("Texture was not correctly loaded");
+            return false;
+        }
+
+        if (size.x == 0 && size.y == 0) {
+            return ImGui::ImageButton(desc.textureId,
+                                      ImVec2(static_cast<float>(desc.width), static_cast<float>(desc.height)),
+                                      uv0, uv1, frame_padding, bg_col, tint_col);
+        }
+
+        return ImGui::ImageButton(desc.textureId, size,
+                                  uv0, uv1, frame_padding, bg_col, tint_col);
     }
 }
 

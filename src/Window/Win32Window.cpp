@@ -184,9 +184,9 @@ namespace Daedalus {
         RegisterClassEx(&windowClass);
 
         DS_CORE_INFO("Creating window with name : {0}, width : {1}, height : {2}",
-                windowProps.windowName,
-                windowProps.width,
-                windowProps.height);
+                     windowProps.windowName,
+                     windowProps.width,
+                     windowProps.height);
 
         // TOPMOST - ON TOP OF ALL WINDOWS
         // TRANSPARENT - CLICK THROUGH WINDOW
@@ -305,6 +305,10 @@ namespace Daedalus {
 
     void Win32Window::Collapse() {
         CloseWindow(windowHandle);
+    }
+
+    LPDIRECT3DDEVICE9 *Win32Window::GetDevicePointer() {
+        return &device;
     }
 }
 

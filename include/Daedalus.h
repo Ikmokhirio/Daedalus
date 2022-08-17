@@ -12,6 +12,7 @@
 #include "Themes/ImGuiTheme.h"
 #include <spdlog/spdlog.h>
 #include "Utils/Utils.h"
+#include "Images/ImageLoader.h"
 
 // --ENTRY POINT--
 //#include "EntryPoint.h"

@@ -37,6 +37,8 @@ namespace Daedalus {
 
         LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+        LPDIRECT3DDEVICE9 *GetDevicePointer();
+
         ~Win32Window();
 
     private:

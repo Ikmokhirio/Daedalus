@@ -43,7 +43,7 @@ bool Animation::Play() {
     animationValue = (float) (startValue +
                               func(animTime) * (endValue - startValue));
 
-    return animTime >= 1.0f;
+    return animTime >= 1.0f || animTime <= 0.0f;
 }
 
 void Animation::Reverse() {

@@ -6,18 +6,22 @@
 
 #include <utility>
 
-LightTheme::LightTheme(std::vector<Daedalus::ImGuiFont> configs) : ImGuiTheme(std::move(configs)) {
+LightTheme::LightTheme(std::vector<Daedalus::ImGuiFont> primaryFonts, std::vector<Daedalus::ImGuiFont> additionalFonts) : ImGuiTheme(std::move(primaryFonts), std::move(additionalFonts)) {
 
 }
 
-void LightTheme::ApplyTheme(ImGuiIO *io, ImGuiStyle *style) {
+std::vector<ImFont *> LightTheme::ApplyTheme(ImGuiIO *io, ImGuiStyle *style) {
 
-    for(auto &config : fonts) {
-        config.ApplyToImGuiIo(io);
+    std::vector<ImFont *> result;
+    for (auto &config: fonts) {
+        std::vector<ImFont*> tmp = config.ApplyToImGuiIo(io);
+        for(const auto &f : tmp) {
+            result.emplace_back(f);
+        }
     }
 
     if (!style) {
-        return;
+        return result;
     }
 
     ImVec4 *colors = style->Colors;
@@ -68,4 +72,6 @@ void LightTheme::ApplyTheme(ImGuiIO *io, ImGuiStyle *style) {
     style->ScrollbarRounding = 9.0f;
     style->GrabMinSize = 5.0f;
     style->GrabRounding = 3.0f;
+
+    return result;
 }

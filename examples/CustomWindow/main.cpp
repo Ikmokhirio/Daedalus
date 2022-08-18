@@ -33,7 +33,7 @@ public:
         Daedalus::ImGuiFont iconsFont(icons, 24.0f, Daedalus::Custom, iconRanges);
         iconsFont.GetConfig().GlyphMinAdvanceX = 13.0f;
 
-        SetNextTheme(new LightTheme({robotoFont, iconsFont}));
+        SetNextTheme(new LightTheme({robotoFont, iconsFont}, {}));
     }
 
     void DrawTitleBar() override {

@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
 add_compile_definitions(DAEDALUS_STATIC_BUILD)
 
+set(DXSDK_DIR "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
 set(DAEDALUS_PATH ${PROJECT_SOURCE_DIR}/../../)
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp LightTheme.cpp LightTheme.h FontAwesome6.h main.cpp)
@@ -13,8 +14,9 @@ add_executable(${PROJECT_NAME} WIN32 main.cpp LightTheme.cpp LightTheme.h FontAw
 target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/ThirdParty/imgui)
+target_include_directories(${PROJECT_NAME} PUBLIC ${DXSDK_DIR}/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DAEDALUS_PATH}/ThirdParty/spdlog/include)
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
-target_link_libraries(${PROJECT_NAME} Daedalus imgui spdlogd d3d9)
+target_link_libraries(${PROJECT_NAME} Daedalus imgui spdlogd d3d9 d3dx9)

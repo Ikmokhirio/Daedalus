@@ -28,6 +28,9 @@ public:
         if(colorAnim->Play()) {
             colorAnim->Reverse();
         }
+        if(ImGui::Button("Reverse animation")) {
+            colorAnim->Reverse();z
+        }
         ImGui::TextColored(ImColor(myAnimatedParams, 0.0f, 0.0f, 1.0f), "Hello, world!");
         ImGui::End();
 

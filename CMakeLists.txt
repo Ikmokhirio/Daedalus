@@ -14,7 +14,7 @@ set(ENABLE_CMAKE_MESSAGES ON)
 set(DXSDK_DIR "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
 
 # IF SET TO 'ON' DAEDALUS WILL BE BUILD AS SHARED LIBRARY
-set(DAEDALUS_SHARED OFF)
+set(DAEDALUS_SHARED ON)
 
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
@@ -120,5 +120,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${DXSDK_DIR}/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/ThirdParty/spdlog/include)
 
 if (DAEDALUS_SHARED)
-    target_link_libraries(${PROJECT_NAME} imgui spdlog d3d9)
+    target_link_libraries(${PROJECT_NAME} imgui spdlog d3d9 d3dx9)
 endif ()

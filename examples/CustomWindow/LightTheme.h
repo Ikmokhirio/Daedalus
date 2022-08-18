@@ -10,9 +10,9 @@
 class LightTheme : public Daedalus::ImGuiTheme{
 public:
 
-    LightTheme(std::vector<Daedalus::ImGuiFont> configs);
+    LightTheme(std::vector<Daedalus::ImGuiFont> primaryFonts, std::vector<Daedalus::ImGuiFont> additionalFonts);
 
-    void ApplyTheme(ImGuiIO *io, ImGuiStyle *style = nullptr) override;
+    std::vector<ImFont*> ApplyTheme(ImGuiIO *io, ImGuiStyle *style = nullptr) override;
 
     ~LightTheme() = default;
 };

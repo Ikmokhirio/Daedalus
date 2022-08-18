@@ -126,10 +126,12 @@ namespace Daedalus {
         }
     }
 
-    void ImGuiFont::ApplyToImGuiIo(ImGuiIO *io) {
+    std::vector<ImFont*> ImGuiFont::ApplyToImGuiIo(ImGuiIO *io) {
+        std::vector<ImFont*> result;
         for (const auto &file: files) {
-            io->Fonts->AddFontFromFileTTF(file.c_str(), fontSize, &config, characterRanges);
+            result.emplace_back(io->Fonts->AddFontFromFileTTF(file.c_str(), fontSize, &config, characterRanges));
         }
+        return result;
     }
 
 }

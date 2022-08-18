@@ -9,7 +9,7 @@
 
 namespace Daedalus {
 
-    Win32Window::Win32Window(WindowProps props) : Window(std::move(props)), nextTheme(nullptr) {
+    Win32Window::Win32Window(WindowProps props) : Window(std::move(props)) {
 
         CreateWin32Window();
 
@@ -35,8 +35,6 @@ namespace Daedalus {
                 exit(0);
             }
         }
-
-        ChangeTheme();
 
         ImGui_ImplDX9_NewFrame();
         ImGui_ImplWin32_NewFrame();
@@ -286,21 +284,17 @@ namespace Daedalus {
 
     }
 
-    void Win32Window::SetNextTheme(ImGuiTheme *theme) {
-        nextTheme = theme;
-    }
+    std::vector<ImFont*> Win32Window::SetNextTheme(ImGuiTheme *theme) {
+        ImGuiIO &io = ImGui::GetIO();
+        io.Fonts->Clear();
 
-    void Win32Window::ChangeTheme() {
-        if (nextTheme) {
-            ImGuiIO &io = ImGui::GetIO();
-            io.Fonts->Clear();
+        std::vector<ImFont*> result= theme->ApplyTheme(&ImGui::GetIO(), &ImGui::GetStyle());
 
-            nextTheme->ApplyTheme(&ImGui::GetIO(), &ImGui::GetStyle());
+        ResetDevice();
 
-            ResetDevice();
+        theme = nullptr;
 
-            nextTheme = nullptr;
-        }
+        return result;
     }
 
     void Win32Window::Collapse() {

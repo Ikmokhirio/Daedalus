@@ -17,9 +17,9 @@ namespace Daedalus {
 
         ImGuiTheme() = default;
 
-        ImGuiTheme(std::vector<ImGuiFont> setupFonts);
+        ImGuiTheme(std::vector<ImGuiFont> primaryMergedFonts, std::vector<ImGuiFont> additionalFonts); // Additional fonts does not require merge option
 
-        virtual void ApplyTheme(ImGuiIO *io, ImGuiStyle *style = nullptr) = 0;
+        virtual std::vector<ImFont*> ApplyTheme(ImGuiIO *io, ImGuiStyle *style = nullptr) = 0;
 
         virtual ~ImGuiTheme() = default;
     };

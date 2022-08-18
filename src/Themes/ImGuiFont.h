@@ -36,7 +36,7 @@ namespace Daedalus {
 
         ImFontConfig &GetConfig();
 
-        void ApplyToImGuiIo(ImGuiIO *io);
+        std::vector<ImFont*> ApplyToImGuiIo(ImGuiIO *io);
 
         void SetFontSize(float size);
 

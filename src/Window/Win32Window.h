@@ -31,7 +31,7 @@ namespace Daedalus {
 
         void EndFrame();
 
-        void SetNextTheme(ImGuiTheme *theme);
+        std::vector<ImFont*> SetNextTheme(ImGuiTheme *theme);
 
         virtual void DrawTitleBar();
 
@@ -49,10 +49,6 @@ namespace Daedalus {
         HWND windowHandle = NULL;
         POINTS position = {};
         WNDCLASSEX windowClass = {};
-
-        ImGuiTheme *nextTheme;
-
-        void ChangeTheme();
 
         void CreateWin32Window();
 

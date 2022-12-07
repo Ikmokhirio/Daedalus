@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 project(Daedalus)
 
-add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/imgui)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/spdlog)
 
+add_compile_definitions(DAEDALUS_PLATFORM_WINDOWS)
 
 # DON'T TOUCH IT :)
 set(CMAKE_CXX_STANDARD 20)
@@ -12,17 +16,11 @@ set(ENABLE_CMAKE_MESSAGES ON)
 
 # YOU CAN INSTALL DIRECTX SDK FROM URL :
 set(DXSDK_DIR "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
+#link_directories(${DXSDK_DIR}/Lib/x86)
+link_directories(${DXSDK_DIR}/Lib/x64)
 
 # IF SET TO 'ON' DAEDALUS WILL BE BUILD AS SHARED LIBRARY
 set(DAEDALUS_SHARED ON)
-
-
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/imgui)
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/shared/imgui})
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/static/spdlog)
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/shared/spdlog})
 
 if (DAEDALUS_SHARED)
     add_compile_definitions(DAEDALUS_BUILD_DLL)

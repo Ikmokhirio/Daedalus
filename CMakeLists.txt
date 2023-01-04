@@ -19,8 +19,9 @@ set(DXSDK_DIR "C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)")
 #link_directories(${DXSDK_DIR}/Lib/x86)
 link_directories(${DXSDK_DIR}/Lib/x64)
 
+# TODO : FIX SHARED BUILD (DOES NOT WORK RIGHT NOW)
 # IF SET TO 'ON' DAEDALUS WILL BE BUILD AS SHARED LIBRARY
-set(DAEDALUS_SHARED ON)
+set(DAEDALUS_SHARED OFF)
 
 if (DAEDALUS_SHARED)
     add_compile_definitions(DAEDALUS_BUILD_DLL)
@@ -35,25 +36,6 @@ if (ENABLE_CMAKE_MESSAGES)
     else ()
         message("Daedalus will be build as static library")
     endif ()
-endif ()
-
-#=====DAEDALUS BUILD==========
-if (DAEDALUS_SHARED)
-    set(BUILD_OPTION SHARED)
-else ()
-    set(BUILD_OPTION STATIC)
-endif ()
-
-add_library(${PROJECT_NAME} ${BUILD_OPTION} include/Daedalus.h src/EntryPoint.h src/Logger.cpp src/Logger.h src/Core.h src/Window/Window.h src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGuiBackends/imgui_impl_dx9.h src/Window/ImGuiBackends/imgui_impl_win32.cpp src/Window/ImGuiBackends/imgui_impl_win32.h src/Window/Window.cpp src/Themes/ImGuiTheme.h src/Themes/ImGuiTheme.cpp src/Themes/ImGuiFont.cpp src/Themes/ImGuiFont.h src/Window/Win32Window.cpp src/Window/Win32Window.h src/Utils/Utils.h src/Utils/Easing/Easing.h src/Utils/Easing/Easing.cpp src/Utils/Utils.cpp src/Images/ImageLoader.cpp src/Images/ImageLoader.h src/Images/ImageDescriptor.h)
-
-if (DAEDALUS_SHARED)
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-            RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
-else ()
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
 endif ()
 
 #=====IMGUI BUILD==========
@@ -109,6 +91,26 @@ else ()
 endif ()
 
 #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/ThirdParty/spdlog/spdlogd.lib ${CMAKE_BINARY_DIR}/spdlogd.lib)
+
+#=====DAEDALUS BUILD==========
+if (DAEDALUS_SHARED)
+    set(BUILD_OPTION SHARED)
+else ()
+    set(BUILD_OPTION STATIC)
+endif ()
+
+add_library(${PROJECT_NAME} ${BUILD_OPTION} include/Daedalus.h src/EntryPoint.h src/Logger.cpp src/Logger.h src/Core.h src/Window/Window.h src/Window/ImGuiBackends/imgui_impl_dx9.cpp src/Window/ImGuiBackends/imgui_impl_dx9.h src/Window/ImGuiBackends/imgui_impl_win32.cpp src/Window/ImGuiBackends/imgui_impl_win32.h src/Window/Window.cpp src/Themes/ImGuiTheme.h src/Themes/ImGuiTheme.cpp src/Themes/ImGuiFont.cpp src/Themes/ImGuiFont.h src/Window/Win32Window.cpp src/Window/Win32Window.h src/Utils/Utils.h src/Utils/Easing/Easing.h src/Utils/Easing/Easing.cpp src/Utils/Utils.cpp src/Images/ImageLoader.cpp src/Images/ImageLoader.h src/Images/ImageDescriptor.h)
+
+if (DAEDALUS_SHARED)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/shared/${PROJECT_NAME})
+else ()
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/static/${PROJECT_NAME})
+endif ()
+
 
 #========FINAL===========
 
